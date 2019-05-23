@@ -1,0 +1,4 @@
+suites:
+    main:
+        namespace: Setono\DAO
+        psr4_prefix: Setono\DAO
