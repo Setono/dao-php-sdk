@@ -1,5 +1,5 @@
 {
-    "name": "setono/dao-nord-php-sdk",
+    "name": "setono/dao-php-sdk",
     "type": "library",
     "description": "A PHP SDK for the DAO API",
     "license": "MIT",
