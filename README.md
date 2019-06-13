@@ -41,6 +41,9 @@ $client->get('/DAOPakkeshop/FindPakkeshop.php', [
 ]);
 ```
 
+## Framework integrations
+Symfony: [DAO Bundle](https://github.com/Setono/DAOBundle)
+
 [ico-version]: https://poser.pugx.org/setono/dao-php-sdk/v/stable
 [ico-unstable-version]: https://poser.pugx.org/setono/dao-php-sdk/v/unstable
 [ico-license]: https://poser.pugx.org/setono/dao-php-sdk/license
