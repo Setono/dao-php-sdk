@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-final class RequestFailedExceptionTest extends TestCase
+final class ApiExceptionTest extends TestCase
 {
     /**
      * @test
@@ -18,10 +18,12 @@ final class RequestFailedExceptionTest extends TestCase
         $request = $this->createMock(RequestInterface::class);
         $response = $this->createMock(ResponseInterface::class);
 
-        $exception = new RequestFailedException($request, $response, 200);
+        $exception = new ApiException($request, $response, 200, 101, 'error');
 
         $this->assertSame($request, $exception->getRequest());
         $this->assertSame($response, $exception->getResponse());
         $this->assertSame(200, $exception->getStatusCode());
+        $this->assertSame(101, $exception->getErrorCode());
+        $this->assertSame('error', $exception->getErrorMessage());
     }
 }

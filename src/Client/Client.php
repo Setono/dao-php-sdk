@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace Setono\DAO\Client;
 
+use InvalidArgumentException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
-use Psr\Http\Message\StreamFactoryInterface;
 use Safe\Exceptions\JsonException;
 use Safe\Exceptions\StringsException;
 use function Safe\json_decode;
-use Setono\DAO\Exception\RequestFailedException;
+use Setono\DAO\Exception\ApiException;
+use Setono\DAO\Exception\NotOkStatusCodeException;
+use Webmozart\Assert\Assert;
 
 final class Client implements ClientInterface
 {
@@ -24,11 +26,6 @@ final class Client implements ClientInterface
      * @var RequestFactoryInterface
      */
     private $requestFactory;
-
-    /**
-     * @var StreamFactoryInterface
-     */
-    private $streamFactory;
 
     /**
      * @var string
@@ -48,47 +45,29 @@ final class Client implements ClientInterface
     public function __construct(
         HttpClientInterface $httpClient,
         RequestFactoryInterface $requestFactory,
-        StreamFactoryInterface $streamFactory,
         string $customerId,
         string $password,
         string $baseUrl = 'https://api.dao.as'
     ) {
         $this->httpClient = $httpClient;
         $this->requestFactory = $requestFactory;
-        $this->streamFactory = $streamFactory;
         $this->customerId = $customerId;
         $this->password = $password;
         $this->baseUrl = $baseUrl;
     }
 
     /**
-     * @param string $endpoint
-     * @param array  $params
-     *
-     * @return array
+     * {@inheritdoc}
      *
      * @throws ClientExceptionInterface
      * @throws JsonException
      * @throws StringsException
+     * @throws InvalidArgumentException
      */
     public function get(string $endpoint, array $params = []): array
     {
-        return $this->sendRequest('GET', $endpoint, $params);
-    }
+        Assert::notContains($endpoint, '?', 'Do not add query parameters to the endpoint. Instead use the third argument, $params');
 
-    /**
-     * @param string $method
-     * @param string $endpoint
-     * @param array  $params
-     *
-     * @return array
-     *
-     * @throws ClientExceptionInterface
-     * @throws JsonException
-     * @throws StringsException
-     */
-    private function sendRequest(string $method, string $endpoint, array $params = []): array
-    {
         $params = array_merge([
             'kundeid' => $this->customerId,
             'kode' => $this->password,
@@ -99,18 +78,18 @@ final class Client implements ClientInterface
 
         $url = $this->baseUrl.'/'.$endpoint.'?'.http_build_query($params, '', '&', PHP_QUERY_RFC3986);
 
-        $request = $this->requestFactory->createRequest($method, $url);
+        $request = $this->requestFactory->createRequest('GET', $url);
 
         $response = $this->httpClient->sendRequest($request);
 
         if (200 !== $response->getStatusCode()) {
-            throw new RequestFailedException($request, $response, $response->getStatusCode());
+            throw new NotOkStatusCodeException($request, $response, $response->getStatusCode());
         }
 
         $data = (array) json_decode((string) $response->getBody(), true);
 
         if (isset($data['status']) && 'FEJL' === $data['status']) {
-            throw new RequestFailedException($request, $response, $response->getStatusCode());
+            throw new ApiException($request, $response, $response->getStatusCode(), $data['fejlkode'], $data['fejltekst']);
         }
 
         return $data;

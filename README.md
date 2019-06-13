@@ -33,7 +33,7 @@ use Setono\DAO\Client\Client;
 $psr17Factory = new Psr17Factory();
 $httpClient = new Curl($psr17Factory);
 
-$client = new Client($httpClient, $psr17Factory, $psr17Factory, 'INSERT CUSTOMER ID', 'INSERT PASSWORD');
+$client = new Client($httpClient, $psr17Factory, 'INSERT CUSTOMER ID', 'INSERT PASSWORD');
 $client->get('/DAOPakkeshop/FindPakkeshop.php', [
     'postnr' => '9000', // zip code
     'adresse' => 'Hansenvej 10', // address

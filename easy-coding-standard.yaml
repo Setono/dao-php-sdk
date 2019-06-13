@@ -4,3 +4,5 @@ imports:
 services:
     PhpCsFixer\Fixer\Import\OrderedImportsFixer: ~
     PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer: ~
+    PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer: ~
+    PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer: ~
