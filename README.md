@@ -6,7 +6,7 @@
 [![Build Status][ico-travis]][link-travis]
 [![Quality Score][ico-code-quality]][link-code-quality]
 
-A PHP SDK for the [DAO API](http://www.dao.as).
+A PHP SDK for the [DAO](http://www.dao.as) [API](https://api.dao.as/docs/).
 
 ## Installation
 
