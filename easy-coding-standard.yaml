@@ -1,8 +1,2 @@
 imports:
-    - { resource: 'vendor/symplify/easy-coding-standard/config/symfony.yml' }
-
-services:
-    PhpCsFixer\Fixer\Import\OrderedImportsFixer: ~
-    PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer: ~
-    PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer: ~
-    PhpCsFixer\Fixer\ClassNotation\ClassAttributesSeparationFixer: ~
+    - { resource: 'vendor/sylius-labs/coding-standard/easy-coding-standard.yml' }

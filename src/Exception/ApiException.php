@@ -9,14 +9,10 @@ use Psr\Http\Message\ResponseInterface;
 
 final class ApiException extends RequestException
 {
-    /**
-     * @var int|null
-     */
+    /** @var int|null */
     private $errorCode;
 
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $errorMessage;
 
     public function __construct(RequestInterface $request, ResponseInterface $response, int $statusCode, int $errorCode, string $errorMessage)
