@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Setono\DAO\Client;
 
 use InvalidArgumentException;
+use const PHP_QUERY_RFC3986;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -66,7 +67,7 @@ final class Client implements ClientInterface
         // overrides the format because this implementation only supports JSON
         $params['format'] = 'json';
 
-        $url = $this->baseUrl . '/' . $endpoint . '?' . http_build_query($params, '', '&', \PHP_QUERY_RFC3986);
+        $url = $this->baseUrl . '/' . $endpoint . '?' . http_build_query($params, '', '&', PHP_QUERY_RFC3986);
 
         $request = $this->requestFactory->createRequest('GET', $url);
 
