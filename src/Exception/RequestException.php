@@ -12,19 +12,13 @@ use function Safe\sprintf;
 
 abstract class RequestException extends RuntimeException
 {
-    /**
-     * @var RequestInterface
-     */
+    /** @var RequestInterface */
     private $request;
 
-    /**
-     * @var ResponseInterface
-     */
+    /** @var ResponseInterface */
     private $response;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $statusCode;
 
     /**

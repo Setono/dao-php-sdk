@@ -54,7 +54,7 @@ class ClientSpec extends ObjectBehavior
         StreamInterface $stream
     ): void {
         $requestFactory
-            ->createRequest('GET', self::BASE_URL.'/endpoint.php?kundeid='.self::CUSTOMER_ID.'&kode='.self::PASSWORD.'&param1=value1&param2=value2&format=json')
+            ->createRequest('GET', self::BASE_URL . '/endpoint.php?kundeid=' . self::CUSTOMER_ID . '&kode=' . self::PASSWORD . '&param1=value1&param2=value2&format=json')
             ->shouldBeCalled();
 
         $response->getStatusCode()->willReturn(200);
