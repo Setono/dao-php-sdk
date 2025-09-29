@@ -12,8 +12,6 @@ use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
-use Safe\Exceptions\JsonException;
-use Safe\Exceptions\StringsException;
 use Setono\DAO\Client\Client;
 use Setono\DAO\Client\ClientInterface;
 use Setono\DAO\Exception\ApiException;
@@ -42,11 +40,6 @@ class ClientSpec extends ObjectBehavior
         $this->shouldImplement(ClientInterface::class);
     }
 
-    /**
-     * @throws ClientExceptionInterface
-     * @throws JsonException
-     * @throws StringsException
-     */
     public function it_gets(
         HttpClientInterface $httpClient,
         RequestFactoryInterface $requestFactory,
@@ -70,9 +63,6 @@ class ClientSpec extends ObjectBehavior
         ]);
     }
 
-    /**
-     * @throws ClientExceptionInterface
-     */
     public function it_throws_not_ok_status_code_exception(
         HttpClientInterface $httpClient,
         RequestFactoryInterface $requestFactory,
@@ -88,10 +78,6 @@ class ClientSpec extends ObjectBehavior
         $this->shouldThrow(NotOkStatusCodeException::class)->during('get', ['endpoint']);
     }
 
-    /**
-     * @throws ClientExceptionInterface
-     * @throws StringsException
-     */
     public function it_throws_api_exception(
         HttpClientInterface $httpClient,
         RequestFactoryInterface $requestFactory,

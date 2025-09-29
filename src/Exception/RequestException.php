@@ -7,8 +7,6 @@ namespace Setono\DAO\Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
-use Safe\Exceptions\StringsException;
-use function Safe\sprintf;
 
 abstract class RequestException extends RuntimeException
 {
@@ -21,9 +19,6 @@ abstract class RequestException extends RuntimeException
     /** @var int */
     private $statusCode;
 
-    /**
-     * @throws StringsException
-     */
     public function __construct(RequestInterface $request, ResponseInterface $response, int $statusCode)
     {
         $this->request = $request;

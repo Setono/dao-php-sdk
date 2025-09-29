@@ -4,14 +4,10 @@ declare(strict_types=1);
 
 namespace Setono\DAO\Client;
 
-use InvalidArgumentException;
 use const PHP_QUERY_RFC3986;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface as HttpClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
-use Safe\Exceptions\JsonException;
-use Safe\Exceptions\StringsException;
-use function Safe\json_decode;
 use Setono\DAO\Exception\ApiException;
 use Setono\DAO\Exception\NotOkStatusCodeException;
 use Webmozart\Assert\Assert;
@@ -47,14 +43,6 @@ final class Client implements ClientInterface
         $this->baseUrl = $baseUrl;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @throws ClientExceptionInterface
-     * @throws JsonException
-     * @throws StringsException
-     * @throws InvalidArgumentException
-     */
     public function get(string $endpoint, array $params = []): array
     {
         Assert::notContains($endpoint, '?', 'Do not add query parameters to the endpoint. Instead use the third argument, $params');
