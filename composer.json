@@ -1,8 +1,8 @@
 {
     "name": "setono/dao-php-sdk",
-    "type": "library",
     "description": "A PHP SDK for the DAO API",
     "license": "MIT",
+    "type": "library",
     "authors": [
         {
             "name": "Joachim Løvgaard",
@@ -28,24 +28,24 @@
         "phpunit/phpunit": "^8.0",
         "sylius-labs/coding-standard": "^3.1"
     },
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Setono\\DAO\\": "src/"
+        }
+    },
     "config": {
-        "sort-packages": true,
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": false,
             "ergebnis/composer-normalize": true
-        }
+        },
+        "sort-packages": true
     },
     "extra": {
         "branch-alias": {
             "dev-master": "2.2-dev"
         }
     },
-    "autoload": {
-        "psr-4": {
-            "Setono\\DAO\\": "src/"
-        }
-    },
-    "prefer-stable": true,
     "scripts": {
         "analyse": "vendor/bin/phpstan analyse -c phpstan.neon -l max src",
         "check-style": "vendor/bin/ecs check --ansi src/ tests/ spec/",
